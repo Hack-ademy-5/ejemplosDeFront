@@ -1,0 +1,129 @@
+ /*  quitamos margenes por defecto del tag */
+body{
+    margin: 0;
+    padding: 0;    
+}
+
+ /*  damos una medida al contenedor progenitor, sino, no funciona align y display: flex; al progenitor */
+.container-fluid{
+    height: 600px;
+    display: flex;
+    justify-content: center;   
+    align-items: center;
+    flex-direction: column;
+}
+
+/* botón */
+ /* ocultamos si hay overflow, y lo hay porque tenemos un pseudolemento 
+    ::before y si no le ponemos overflow:hidden; se va a ver.  quitalo y comprueba
+ */
+.my-btn{
+    background-color: #fff;
+    position: relative;
+    box-shadow: 3px 3px 5px 0px #000;
+    border: none;
+    border-radius: 15px;            
+    padding: 10px 30px;
+    height: 60px;
+    width: 60px;
+    overflow: hidden;    
+}    
+
+/*  Botón copia
+ Con ::before añadimos contenido antes del botón y creamos una copia.
+1. Hay propiedades css que no se heredan, así que, tenemos que especificar esas propiedades(height 100% de su padre,etc.. )
+2.Para que un pseudoelemento se cree, necesita content: "", en este caso vacía, porque no queremos nada(mirar ejemplo w3schools)
+3.Usamos transform para mover el botón copia dentro del original
+4.Usamos una transición para hacerlo visualmente más agradable */
+    .my-btn::before{
+    background-color: rgba(150, 109, 34, 0.514);
+    top: 0;
+    left: 0;
+    transform: translateX(-100%); 
+    transition: 0.5s ease-in-out;
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+}
+
+/* 5. Encadenamos con hover para que se aplique lo anterior al hover */
+.my-btn:hover::before{
+    transform: translateX(0);
+}
+
+
+/* Contenedor donde pondremos lo que queremos animar
+Animation con sus propiedades */
+.container{
+    margin-top: 100px;
+    animation: arrow-animation 1.5s infinite ease-in-out;
+}/* 
+Las llaves donde especificaremos en cada punto y porcentaje de la animación que queremos que haga */
+@keyframes arrow-animation {
+    0%{
+        transform: translateY(-20px);opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(20px);opacity: 0;
+    }
+}
+.container-flex {
+    background-color: #2F2B35;
+    height: 15vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .container-flex a {
+    margin-left: 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+  .register {
+    margin-right: 10px;
+  }
+  
+  .logo {
+    margin-right: 72vw;
+  }
+
+  /* media para cambiar la navbar, varios ejemplos distintos de ellas */
+  
+  @media(max-width: 400px ){
+    .container-flex{
+      height: 30vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    .register {
+        margin-right: 0;
+      }
+}
+   
+    @media(max-width:1200px) {
+      .logo {
+        margin-right: 50vh;
+      }
+    }
+    
+    @media(max-width:850px) {
+      .logo {
+        margin-right: 0;
+      }
+    }
+    
+    @media only screen and (max-width: 1000px) and (min-width: 600px) {
+      .container-flex {
+        background-color: blue;
+      }
+    }
